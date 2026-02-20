@@ -19,12 +19,12 @@ router = APIRouter()
 
 # UNCOMMENT AND FILL IN
 #
-@router.get("/learners", response_model=list[Learner])
-async def list_learners(
-    enrolled_after: datetime | None = None,
+@router.get("/items", response_model=list[Item])
+async def read_items(
     session: AsyncSession = Depends(get_session),
 ):
-    return await read_learners(session, enrolled_after=enrolled_after)
+    """Retrieve all items."""
+    return await read_items(session)
 # Reference:
 # items GET -> reads from items table, returns list[Item]
 # learners GET -> reads from learners table, returns list[Learner]
