@@ -19,12 +19,13 @@ router = APIRouter()
 
 # UNCOMMENT AND FILL IN
 #
-@router.get("/items", response_model=list[Item])
-async def read_items(
+@router.get("/", response_model=list[Learner])
+async def get_learners(
+    enrolled_after: datetime | None = None,
     session: AsyncSession = Depends(get_session),
 ):
-    """Retrieve all items."""
-    return await read_items(session)
+    """Get all learners, optionally filtered by enrollment date."""
+    return await read_learners(session, enrolled_after)
 # Reference:
 # items GET -> reads from items table, returns list[Item]
 # learners GET -> reads from learners table, returns list[Learner]
@@ -36,14 +37,14 @@ async def read_items(
 
 # UNCOMMENT AND FILL IN
 #
-# @router.<method>("/<resource_name>", response_model=<resource_schema>, status_code=<status_code>)
-# async def <function_name>(
-#     <param_name>: <request_schema>,
-#     session: AsyncSession = Depends(get_session),
-# ):
-#     """<docstring>"""
-#     return await <db_create_function>(session, name=<param_name>.name, email=<param_name>.email)
-#
+@router.<method>("/<resource_name>", response_model=<resource_schema>, status_code=<status_code>)
+async def <function_name>(
+    <param_name>: <request_schema>,
+    session: AsyncSession = Depends(get_session),
+):
+    """<docstring>"""
+    return await <db_create_function>(session, name=<param_name>.name, email=<param_name>.email)
+
 # Reference:
 # items POST -> creates a row in items table, accepts ItemCreate, returns Item with status 201
 # learners POST -> creates a row in learners table, accepts LearnerCreate, returns Learner with status 201
